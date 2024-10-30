@@ -7,8 +7,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"log"
 	"net/http"
-	"os"
 )
+
 
 type TemplateMetadata struct {
 	ID           int      `json:"id,omitempty"`
@@ -29,6 +29,7 @@ func initDB() {
 	if err != nil {
 		log.Fatalf("Error opening SQLite database: %v", err)
 	}
+
 
 	createTableQuery := `
 	CREATE TABLE IF NOT EXISTS templates (
@@ -127,11 +128,6 @@ func fetchTemplateHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	initDB()
-
-	const baseTemplateDir = "./templates"
-	if err := os.MkdirAll(baseTemplateDir, os.ModePerm); err != nil {
-		log.Fatalf("Error creating template base directory: %v", err)
-	}
 
 	http.HandleFunc("/push-template", pushTemplateHandler)
 	http.HandleFunc("/list-templates", listTemplatesHandler)

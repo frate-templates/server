@@ -1,0 +1,10 @@
+
+[build]
+  bin = "frate-template"
+  cmd = "go build -o frate-template"
+  include_ext = ["go", "tpl", "tmpl", "html"]
+  exclude_dir = ["vendor", "tmp"]
+
+[log]
+  level = "info"
+

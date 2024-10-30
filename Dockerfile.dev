@@ -1,0 +1,19 @@
+FROM golang:alpine AS dev
+
+RUN apk add --no-cache sqlite-dev build-base git curl bash
+
+RUN curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s
+ 
+
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["air", "-c", ".air.toml"]
+

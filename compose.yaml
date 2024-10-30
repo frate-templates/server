@@ -1,0 +1,14 @@
+services:
+  templates:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    develop:
+      watch:
+        - action: sync 
+          path: .
+          target: /app 
+    environment:
+      - GOCACHE=/root/.cache/go-build
